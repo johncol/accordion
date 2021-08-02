@@ -1,0 +1,92 @@
+.accordion {
+  --font-size: 1.4rem;
+  --color: #333;
+  --border-color: #ddd;
+  --vertical-padding: 1rem;
+  --header-height: 2rem;
+  --transitions-duration: 0.3s;
+}
+
+.accordion * {
+  box-sizing: border-box;
+  font-size: var(--font-size);
+  color: var(--color);
+}
+
+.accordion > section {
+  border-bottom: 1px solid var(--border-color);
+  padding: var(--vertical-padding) 0;
+  height: calc(var(--header-height) + calc(var(--vertical-padding) * 2));
+  transition: height var(--transitions-duration) ease-in-out;
+  overflow: hidden;
+}
+
+.accordion > section header {
+  height: var(--header-height);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accordion > section header:focus-visible {
+  outline: 1px dashed #aaa;
+  outline-offset: 1px;
+}
+
+.accordion > section header:focus-visible * {
+  --color: #4660bd;
+  color: var(--color);
+}
+
+.accordion > section header > :is(h2, h3, h4, h5, h6) {
+  font-weight: 600;
+  letter-spacing: 0.05rem;
+}
+
+.accordion > section header > [role='button'] {
+  border: none;
+  box-shadow: none;
+  color: transparent;
+  background-color: transparent;
+  padding: 0;
+  display: block;
+  height: 1rem;
+  width: 1rem;
+  position: relative;
+}
+
+.accordion > section header > [role='button']::after,
+.accordion > section header > [role='button']::before {
+  content: '';
+  display: block;
+  color: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  background-color: var(--color);
+  width: 2px;
+  height: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: center;
+  transition: transform var(--transitions-duration) ease-in-out;
+}
+
+.accordion > section header > [role='button']::after {
+  transform: rotateZ(90deg);
+}
+
+.accordion > section[data-open='true'] header > [role='button']::before {
+  transform: rotateZ(90deg);
+}
+
+.accordion > section .section-content {
+  opacity: 0;
+  transition: opacity var(--transitions-duration) ease-in-out;
+}
+
+.accordion > section[data-open='true'] .section-content {
+  opacity: 1;
+}
